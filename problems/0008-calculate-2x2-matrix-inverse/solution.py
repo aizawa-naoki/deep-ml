@@ -1,37 +1,17 @@
-import numpy as np
+import torch
 
-def inverse_2x2(matrix: list[list[float]]) -> list[list[float]] | None:
+def inverse_2x2(matrix) -> torch.Tensor | None:
     """
-    Calculate the inverse of a 2x2 matrix.
+    Compute the inverse of a 2x2 matrix using PyTorch.
     
     Args:
-        matrix: A 2x2 matrix represented as [[a, b], [c, d]]
+        matrix: A 2x2 matrix (can be list, numpy array, or torch.Tensor)
     
     Returns:
-        The inverse matrix as a 2x2 list, or None if the matrix is singular
-        (i.e., determinant equals zero)
+        A 2x2 tensor containing the inverse, or None if the matrix is singular
     """
+    m = torch.as_tensor(matrix, dtype=torch.float)
     # Your code here
-    mat = np.asarray(matrix, dtype=float)
-    a, b, c, d = mat.flat
-    det = a * d - b * c
-    if det == 0.0:
+    if torch.linalg.det(m) == 0:
         return None
-    inv = np.array([[d, -b], [-c, a]]) / det
-    return inv.tolist()
-
-def inverse_2x2_another(matrix: list[list[float]]) -> list[list[float]] | None:
-    mat = np.asarray(matrix, dtype=float)
-    if mat.shape != (2, 2):
-        raise ValueError(f"expected a 2x2 matrix, got shape {mat.shape}") 
-    
-    # below is No. matrix_rank is not precise.
-    # also np.linalg.det is a No.
-    # if np.linalg.matrix_rank(mat) != 2:
-    #    return None
-
-    try:
-        return np.linalg.inv(mat).tolist()
-    except np.linalg.LinAlgError:
-        return None
-    
+    return torch.inverse(m)
