@@ -12,6 +12,7 @@ def inverse_2x2(matrix) -> torch.Tensor | None:
     """
     m = torch.as_tensor(matrix, dtype=torch.float)
     # Your code here
-    if torch.linalg.det(m) == 0:
+    try:
+        return torch.linalg.solve(m, torch.eye(2, dtype=m.dtype))
+    except RuntimeError:
         return None
-    return torch.inverse(m)
