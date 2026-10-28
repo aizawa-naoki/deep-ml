@@ -9,6 +9,7 @@ def matrixmul(a, b) -> torch.Tensor:
     t_a, t_b = torch.as_tensor(a), torch.as_tensor(b)
 
     if not (t_a.ndim == t_b.ndim == 2) or t_a.size(-1) != t_b.size(-2):
-        return -1
+        return torch.tensor(-1)
 
-    return t_a @ t_b
+    # d
+    return t_a.to(t_b).mm(t_b)
