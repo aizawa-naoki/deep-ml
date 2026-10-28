@@ -12,11 +12,17 @@ def inverse_2x2(matrix: list[list[float]]) -> list[list[float]] | None:
         (i.e., determinant equals zero)
     """
     # Your code here
-    mat = np.asarray(matrix)
+    mat = np.asarray(matrix, dtype=float)
     if mat.shape != (2, 2):
-        raise RuntimeError
+        raise ValueError(f"expected a 2x2 matrix, got shape {mat.shape}") 
     
-    if np.linalg.matrix_rank(mat) != 2:
+    # below is No. matrix_rank is not precise.
+    # also np.linalg.det is a No.
+    # if np.linalg.matrix_rank(mat) != 2:
+    #    return None
+
+    try:
+        return np.linalg.inv(mat).tolist()
+    except np.linalg.LinAlgError:
         return None
     
-    return np.linalg.inv(mat).tolist()
