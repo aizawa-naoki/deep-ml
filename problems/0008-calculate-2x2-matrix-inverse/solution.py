@@ -13,6 +13,15 @@ def inverse_2x2(matrix: list[list[float]]) -> list[list[float]] | None:
     """
     # Your code here
     mat = np.asarray(matrix, dtype=float)
+    a, b, c, d = mat.flat
+    det = a * d - b * c
+    if det == 0.0:
+        return None
+    inv = np.array([[d, -b], [-c, a]]) / det
+    return inv.tolist()
+
+def inverse_2x2_another(matrix: list[list[float]]) -> list[list[float]] | None:
+    mat = np.asarray(matrix, dtype=float)
     if mat.shape != (2, 2):
         raise ValueError(f"expected a 2x2 matrix, got shape {mat.shape}") 
     
