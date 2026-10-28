@@ -14,5 +14,5 @@ def inverse_2x2(matrix) -> torch.Tensor | None:
     # Your code here
     try:
         return torch.linalg.solve(m, torch.eye(2, dtype=m.dtype))
-    except RuntimeError:
+    except torch._C._LinAlgError:  # when lin
         return None
