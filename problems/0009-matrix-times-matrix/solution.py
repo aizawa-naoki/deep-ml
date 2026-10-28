@@ -11,5 +11,6 @@ def matrixmul(a, b) -> torch.Tensor:
     if not (t_a.ndim == t_b.ndim == 2) or t_a.size(-1) != t_b.size(-2):
         return torch.tensor(-1)
 
-    # d
+    # dtypeとdeviceをあわせる
+    # @はブロードキャストされてしまうのでmm (matmul) を使う
     return t_a.to(t_b).mm(t_b)
